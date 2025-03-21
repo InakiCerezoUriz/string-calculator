@@ -9,15 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 final class StringCalculatorTest extends TestCase
 {
-    // TODO: String Calculator Kata Tests
     /**
      * @test
      */
-    public function givenNoNumbersToAddReturnsZero()
+    public function givenNoNumbersToAddReturnsZero(): void
     {
         $stringCalculator = new StringCalculator();
 
-        $result = $stringCalculator->add('');
+        $result = $stringCalculator->Add('');
 
         $this->assertEquals(0, $result);
     }
@@ -25,14 +24,13 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumberOneReturnsOne()
+    public function givenSingleNumberReturnsSameNumber(): void
     {
         $stringCalculator = new StringCalculator();
 
-        $result = $stringCalculator->add('1');
+        $result = $stringCalculator->Add('1');
 
         $this->assertEquals(1, $result);
-
     }
 
 
