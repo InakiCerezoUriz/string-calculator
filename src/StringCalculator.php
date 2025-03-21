@@ -23,16 +23,20 @@ class StringCalculator
             $numbers = explode($delimiter, str_replace("\n", '', $numbers));
 
             $negativeNumbers = [];
+            $validNumbers = [];
             foreach ($numbers as $num) {
                 if ($num < 0){
                     $negativeNumbers[] = $num;
+                }
+                if ($num < 1000){
+                    $validNumbers[] = $num;
                 }
             }
             if (!empty($negativeNumbers)){
                 throw new \Exception('negativos no soportados '.implode(', ', $negativeNumbers));
             }
 
-            $numbers = array_sum($numbers);
+            $numbers = array_sum($validNumbers);
         }
         return $numbers;
     }

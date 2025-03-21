@@ -145,4 +145,12 @@ final class StringCalculatorTest extends TestCase
     {
         $this->assertEquals(0, $this->stringCalculator->Add("1001"));
     }
+
+    /**
+     * @test
+     */
+    public function givenNumbersWithSomeNumbersBiggerThan1000ReturnsSumOfNumbersSmallerThan1000()
+    {
+        $this->assertEquals(6, $this->stringCalculator->Add("1,2,1001,3,1005"));
+    }
 }
