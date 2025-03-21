@@ -13,9 +13,7 @@ final class StringCalculatorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->stringCalculator = new StringCalculator();
-
     }
 
     /**
@@ -66,6 +64,23 @@ final class StringCalculatorTest extends TestCase
         $this->assertEquals(6, $this->stringCalculator->Add("//;\n1;\n2;\n3"));
     }
 
+    /**
+     * @test
+     */
+    public function givenSingleNegativeNumberExpectException()
+    {
+        $this->expectException(\Exception::class);
+        $this->stringCalculator->Add("-1");
+    }
+
+    /**
+     * @test
+     */
+    public function givenSingleNegativeNumberExpectExceptionMessage(): void
+    {
+        $this->expectExceptionMessage("negativos no soportados -1");
+        $this->stringCalculator->Add("-1");
+    }
 
     /**
      * @test
@@ -79,21 +94,10 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenSingleNegativeNumberExpectExceptionMessage(): void
-    {
-        $this->expectExceptionMessage("negativos no soportados -1");
-        $this->stringCalculator->Add("-1");
-    }
-
-
-    /**
-     * @test
-     */
     public function givenNumbersWithSingleNegativeNumberExpectExceptionMessage()
     {
         $this->expectExceptionMessage("negativos no soportados -1");
         $this->stringCalculator->Add("1,-1");
-
     }
 
 
