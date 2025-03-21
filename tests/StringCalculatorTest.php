@@ -58,5 +58,18 @@ final class StringCalculatorTest extends TestCase
         $this->assertEquals(6, $this->stringCalculator->Add("//;\n1;2;3"));
     }
 
+    /**
+     * @test
+     */
+    public function givenNumbersWithSingleNegativeNumberExpectExceptionAndExceptionMessage(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("negativos no soportados -1");
+
+        $this->stringCalculator->Add("1,-1");
+    }
+
+
+
 
 }
