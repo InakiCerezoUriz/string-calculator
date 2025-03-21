@@ -67,7 +67,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenSingleNegativeNumberExpectException()
+    public function givenSingleNegativeNumberExpectException(): void
     {
         $this->expectException(\Exception::class);
         $this->stringCalculator->Add("-1");
@@ -94,7 +94,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithSingleNegativeNumberExpectExceptionMessage()
+    public function givenNumbersWithSingleNegativeNumberExpectExceptionMessage(): void
     {
         $this->expectExceptionMessage("negativos no soportados -1");
         $this->stringCalculator->Add("1,-1");
@@ -104,7 +104,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithMultipleNegativeNumbersExpectException()
+    public function givenNumbersWithMultipleNegativeNumbersExpectException(): void
     {
         $this->expectException(\Exception::class);
         $this->stringCalculator->Add("1,-1,2,-2,-4");
@@ -113,7 +113,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithMultipleNegativeNumbersExpectExceptionMessage()
+    public function givenNumbersWithMultipleNegativeNumbersExpectExceptionMessage(): void
     {
         $this->expectExceptionMessage("negativos no soportados -1, -2");
         $this->stringCalculator->Add("1,-1,2,-2");
@@ -123,7 +123,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithMultipleNegativeNumbersAndLineBreakExpectException()
+    public function givenNumbersWithMultipleNegativeNumbersAndLineBreakExpectException(): void
     {
         $this->expectException(\Exception::class);
         $this->stringCalculator->Add("1,-1,\n2,-2,-4");
@@ -132,7 +132,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithMultipleNegativeNumbersAndLineBreakExpectExceptionMessage()
+    public function givenNumbersWithMultipleNegativeNumbersAndLineBreakExpectExceptionMessage(): void
     {
         $this->expectExceptionMessage("negativos no soportados -1, -2, -4");
         $this->stringCalculator->Add("1,\n-1,\n2,\n-2,-4");
@@ -141,7 +141,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenSingleNumberBiggerThan1000ReturnsZero()
+    public function givenSingleNumberBiggerThan1000ReturnsZero(): void
     {
         $this->assertEquals(0, $this->stringCalculator->Add("1001"));
     }
@@ -149,7 +149,7 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithSomeNumbersBiggerThan1000ReturnsSumOfNumbersSmallerThan1000()
+    public function givenNumbersWithSomeNumbersBiggerThan1000ReturnsSumOfNumbersSmallerThan1000(): void
     {
         $this->assertEquals(6, $this->stringCalculator->Add("1,2,1001,3,1005"));
     }
@@ -157,10 +157,34 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenDelimitationSymbolOfAnyLengthAndNumbersReturnsSumOfNumbers()
+    public function givenDelimitationSymbolOfAnyLengthAndNumbersReturnsSumOfNumbers(): void
     {
         $this->assertEquals(6, $this->stringCalculator->Add("//[***]\n1***2***3"));
+    }
 
+    /**
+     * @test
+     */
+    public function givenDelimitationSymbolOfAnyLengthNumbersAndLineBreakReturnsSumOfNumbers(): void
+    {
+        $this->assertEquals(6, $this->stringCalculator->Add("//[***]\n1***\n2***\n3"));
+    }
+
+    /**
+     * @test
+     */
+    public function givenDelimitationSymbolOfAnyLengthAndNumbersWithNegativeNumbersReturnsException(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->stringCalculator->Add("//[***]\n-1***2***-3");
+    }
+
+    /**
+     * @test
+     */
+    public function givenDelimitationSymbolOfAnyLengthAndNumbersWithNumbersBiggerThan1000ReturnsSumOfNumbersSmallerThan1000()
+    {
+        $this->assertEquals(6, $this->stringCalculator->Add("//[***]\n1***2***1001***3***1005"));
     }
 
 }
