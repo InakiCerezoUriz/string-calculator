@@ -6,9 +6,12 @@ class StringCalculator
 {
     public function Add(string $numbers): int
     {
-        if ($numbers === ''){
+        if (empty($numbers)){
             return 0;
         }
-        return intval($numbers);
+        if (str_contains($numbers, ',')){
+            $numbers = array_sum(explode(',',str_replace("\n", '', $numbers)));
+        }
+        return $numbers;
     }
 }

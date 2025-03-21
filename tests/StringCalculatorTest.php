@@ -9,16 +9,21 @@ use PHPUnit\Framework\TestCase;
 
 final class StringCalculatorTest extends TestCase
 {
+    private StringCalculator $stringCalculator;
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->stringCalculator = new StringCalculator();
+
+    }
+
     /**
      * @test
      */
     public function givenNoNumbersToAddReturnsZero(): void
     {
-        $stringCalculator = new StringCalculator();
-
-        $result = $stringCalculator->Add('');
-
-        $this->assertEquals(0, $result);
+        $this->assertEquals(0, $this->stringCalculator->Add(""));
     }
 
     /**
@@ -26,12 +31,25 @@ final class StringCalculatorTest extends TestCase
      */
     public function givenSingleNumberReturnsSameNumber(): void
     {
-        $stringCalculator = new StringCalculator();
-
-        $result = $stringCalculator->Add('1');
-
-        $this->assertEquals(1, $result);
+        $this->assertEquals(1, $this->stringCalculator->Add("1"));
     }
+
+    /**
+     * @test
+     */
+    public function givenNumbersReturnsSumOfNumbers(): void
+    {
+        $this->assertEquals(6, $this->stringCalculator->Add("1,2,3"));
+    }
+
+    /**
+     * @test
+     */
+    public function givenNumberSeparatedByCommasAndLineBreakReturnsSumOfNumbers(): void
+    {
+        $this->assertEquals(6, $this->stringCalculator->Add("1,\n2,3"));
+    }
+
 
 
 }
