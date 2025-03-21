@@ -6,9 +6,10 @@ class StringCalculator
 {
     public function Add(string $numbers): int
     {
-        if (empty($numbers)){
+        if (empty($numbers) || $numbers > 1000){
             return 0;
         }
+
         $delimiter = ',';
         if (str_starts_with($numbers, '//')) {
             $delimiter = $numbers[2];

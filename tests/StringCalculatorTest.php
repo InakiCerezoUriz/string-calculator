@@ -124,5 +124,11 @@ final class StringCalculatorTest extends TestCase
         $this->stringCalculator->Add("1,\n-1,\n2,\n-2,-4");
     }
 
-
+    /**
+     * @test
+     */
+    public function givenSingleNumberBiggerThan1000ReturnsZero()
+    {
+        $this->assertEquals(0, $this->stringCalculator->Add("1001"));
+    }
 }
