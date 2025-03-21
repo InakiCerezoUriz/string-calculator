@@ -153,4 +153,14 @@ final class StringCalculatorTest extends TestCase
     {
         $this->assertEquals(6, $this->stringCalculator->Add("1,2,1001,3,1005"));
     }
+
+    /**
+     * @test
+     */
+    public function givenDelimitationSymbolOfAnyLengthAndNumbersReturnsSumOfNumbers()
+    {
+        $this->assertEquals(6, $this->stringCalculator->Add("//[***]\n1***2***3"));
+
+    }
+
 }

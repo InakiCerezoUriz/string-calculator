@@ -16,8 +16,14 @@ class StringCalculator
 
         $delimiter = ',';
         if (str_starts_with($numbers, '//')) {
-            $delimiter = $numbers[2];
-            $numbers = substr($numbers, 4);
+            $breakLinePos = strpos($numbers, "\n");
+
+            $delimiter = substr($numbers,2, $breakLinePos - 2);
+
+            if (str_starts_with($delimiter, '[') && str_ends_with($delimiter, ']')){
+                $delimiter = substr($delimiter,1,-1);
+            }
+            $numbers = substr($numbers, $breakLinePos + 1);
         }
         if (str_contains($numbers, $delimiter)) {
             $numbers = explode($delimiter, str_replace("\n", '', $numbers));
