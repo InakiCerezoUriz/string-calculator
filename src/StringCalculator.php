@@ -10,6 +10,10 @@ class StringCalculator
             return 0;
         }
 
+        if (strlen($numbers) == 2 && $numbers < 0){
+            throw new \Exception('negativos no soportados '.$numbers);
+        }
+
         $delimiter = ',';
         if (str_starts_with($numbers, '//')) {
             $delimiter = $numbers[2];
@@ -25,7 +29,7 @@ class StringCalculator
                 }
             }
             if (!empty($negativeNumbers)){
-                throw new \Exception('negativos no soportados '.implode(', ', $negativeNumbers) );
+                throw new \Exception('negativos no soportados '.implode(', ', $negativeNumbers));
             }
 
             $numbers = array_sum($numbers);
