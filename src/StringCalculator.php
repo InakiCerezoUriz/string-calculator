@@ -10,15 +10,24 @@ class StringCalculator
             return 0;
         }
         $delimiter = ',';
-        if (($negativeNumber = strpos($numbers, '-')) !== false){
-            throw new \Exception('negativos no soportados -'. $numbers[$negativeNumber+1]);
-        }
         if (str_starts_with($numbers, '//')) {
             $delimiter = $numbers[2];
             $numbers = substr($numbers, 4);
         }
         if (str_contains($numbers, $delimiter)) {
-            $numbers = array_sum(explode($delimiter, str_replace("\n", '', $numbers)));
+            $numbers = explode($delimiter, str_replace("\n", '', $numbers));
+
+            $negativeNumbers = [];
+            foreach ($numbers as $num) {
+                if ($num < 0){
+                    $negativeNumbers[] = $num;
+                }
+            }
+            if (!empty($negativeNumbers)){
+                throw new \Exception('negativos no soportados '.implode(', ', $negativeNumbers) );
+            }
+
+            $numbers = array_sum($numbers);
         }
         return $numbers;
     }

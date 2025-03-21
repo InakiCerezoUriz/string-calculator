@@ -61,15 +61,68 @@ final class StringCalculatorTest extends TestCase
     /**
      * @test
      */
-    public function givenNumbersWithSingleNegativeNumberExpectExceptionAndExceptionMessage(): void
+    public function givenDelimitationSymbolNumbersAndBreakLineReturnsSumOfNumbers(): void
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("negativos no soportados -1");
-
-        $this->stringCalculator->Add("1,-1");
+        $this->assertEquals(6, $this->stringCalculator->Add("//;\n1;\n2;\n3"));
     }
 
 
+    /**
+     * @test
+     */
+    public function givenNumbersWithSingleNegativeNumberExpectException(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->stringCalculator->Add("1,-1");
+    }
+
+    /**
+     * @test
+     */
+    public function givenNumbersWithSingleNegativeNumberExpectExceptionMessage()
+    {
+        $this->expectExceptionMessage("negativos no soportados -1");
+        $this->stringCalculator->Add("1,-1");
+
+    }
+
+
+    /**
+     * @test
+     */
+    public function givenNumbersWithMultipleNegativeNumbersExpectException()
+    {
+        $this->expectException(\Exception::class);
+        $this->stringCalculator->Add("1,-1,2,-2,-4");
+    }
+
+    /**
+     * @test
+     */
+    public function givenNumbersWithMultipleNegativeNumbersExpectExceptionMessage()
+    {
+        $this->expectExceptionMessage("negativos no soportados -1, -2");
+        $this->stringCalculator->Add("1,-1,2,-2");
+    }
+
+
+    /**
+     * @test
+     */
+    public function givenNumbersWithMultipleNegativeNumbersAndLineBreakExpectException()
+    {
+        $this->expectException(\Exception::class);
+        $this->stringCalculator->Add("1,-1,\n2,-2,-4");
+    }
+
+    /**
+     * @test
+     */
+    public function givenNumbersWithMultipleNegativeNumbersAndLineBreakExpectExceptionMessage()
+    {
+        $this->expectExceptionMessage("negativos no soportados -1, -2, -4");
+        $this->stringCalculator->Add("1,\n-1,\n2,\n-2,-4");
+    }
 
 
 }
